@@ -1,0 +1,57 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai-http": "^4.3.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.11",
+    "morgan": "^1.10.0",
+    "node-env-file": "^0.1.8",
+    "passport": "^0.5.2",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "redis": "^3.1.2",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-node-express": "^1.2.3",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "name": "delilah-resto",
+  "description": "npm i node-env-file",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha  --timeout 10000",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Valeush/delilah-resto.git"
+  },
+  "author": "Valeria Mancilla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Valeush/delilah-resto/issues"
+  },
+  "homepage": "https://gitlab.com/Valeush/delilah-resto#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.12"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
