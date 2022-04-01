@@ -1,22 +1,27 @@
-import mon from "mongoose";
+import mon from 'mongoose';
 const { Schema, model } = mon;
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      required:true,
-      unique: true,
-    },
-    fullname: {
+    {
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        googleId: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        /**fullname: {
       type: String,
       required:true
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
     },
     password: {
       type: String,
@@ -35,19 +40,19 @@ const userSchema = new Schema(
         ref: "Role",
         type: Schema.Types.ObjectId,
       },
-    ],
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+    ],**/
+    },
+    {
+        timestamps: true,
+        versionKey: false,
+    }
 );
 
 userSchema.statics.encryptPassword = async (password) => {
-  return await bcrypt.hash(password, 10);
+    return await bcrypt.hash(password, 10);
 };
 
 userSchema.statics.comparePassword = async (password, receivedPassword) => {
-  return await bcrypt.compare(password, receivedPassword);
+    return await bcrypt.compare(password, receivedPassword);
 };
-export default model("User", userSchema);
+export default model('User', userSchema);

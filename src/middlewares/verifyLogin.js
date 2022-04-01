@@ -1,17 +1,12 @@
-
-import User from "../models/user.js";
-
-
+import User from '../models/user.js';
 
 export const isLoginUser = async (req, res, next) => {
     const user = await User.findById(req.userId);
-    console.log(req.userI)
-  //const roles = await Role.find({ _id: { $in: user.roles } });
-  //console.log(roles);
+    console.log(req.userI);
     if (!user) {
-         res.status(404).send({ result: "user no login" });
+        res.status(404).send({ result: 'user no login' });
     } else {
-        req.user = user
-        next()
+        req.user = user;
+        next();
     }
 };

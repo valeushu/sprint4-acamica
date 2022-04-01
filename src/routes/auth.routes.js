@@ -1,29 +1,20 @@
-import { Router } from "express";
+import { Router } from 'express';
 const router = Router();
-import passport from "passport";
+import passport from 'passport';
 
-import * as authCtrl from "../controllers/auth.controller.js";
-import { verifySignup , authJwt} from "../middlewares/index.js";
-import '../services/google.auth.js'
+import * as authCtrl from '../controllers/auth.controller.js';
+import { verifySignup, authJwt } from '../middlewares/index.js';
+import '../services/google.auth.js';
 
-router.post(
-  "/signup",
-  [verifySignup.checkDuplicateEmail, verifySignup.checkRolesExisted],
-  authCtrl.signup
-);
-router.post("/login", authCtrl.login);
-router.get('/me',[authJwt.verifyToken], authCtrl.me)
+router.post('/signup', [verifySignup.checkDuplicateEmail, verifySignup.checkRolesExisted], authCtrl.signup);
+router.post('/login', authCtrl.login);
+router.get('/me', [authJwt.verifyToken], authCtrl.me);
 
-router.get('/google',
-  passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
-));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/google/success',
-        failureRedirect: '/google/failure'
-}));
+router.get('/google/callback', passport.authenticate('google'), (req, res) => {
+    res.send('callback function');
+});
 
 export default router;
 
@@ -66,7 +57,7 @@ export default router;
  *                address:
  *                  description: User address
  *                  type: string
- *                roles: 
+ *                roles:
  *                  description: User role
  *                  type: array
  *             example:
@@ -82,14 +73,13 @@ export default router;
  *         description: User Created
  */
 
-
 //TODO: resetear valores
 
 /**
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: User login 
+ *     summary: User login
  *     tags: [auth]
  *     requestBody:
  *       required: true
@@ -119,7 +109,7 @@ export default router;
  * @swagger
  * /api/auth/me:
  *   get:
- *     summary: logged user 
+ *     summary: logged user
  *     tags: [users]
  *     description: show data user
  *     security:

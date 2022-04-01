@@ -1,12 +1,11 @@
-import redis from "redis";
+import redis from 'redis';
 const client = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
 });
 
-client.on("error", function (error) {
-  console.error(error);
+client.on('error', function (error) {
+    console.error(error);
 });
 
-export default client
-
+export default client;
