@@ -12,9 +12,9 @@ router.get('/me', [authJwt.verifyToken], authCtrl.me);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-    res.send('callback function');
-});
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: "http://localhost:7000/home"
+}));
 
 export default router;
 

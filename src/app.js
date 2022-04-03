@@ -7,10 +7,11 @@ import usersRoutes from './routes/user.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import ordersRoutes from './routes/order.routes.js';
 import payRoutes from './routes/pay.routes.js';
+import homeRoutes from './routes/home.route.js';
 import 'dotenv/config';
 import { createRoles } from './libs/initialSetup.js';
 import passport from 'passport';
-import session from 'express-session';
+import session from 'cookie-session';
 
 const app = express();
 app.use(helmet());
@@ -34,9 +35,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
     session({
-        secret: process.env.APP_SESSION_SECRET,
+        //secret: process.env.APP_SESSION_SECRET,}
+        keys: [process.env.SESSION_KEY],
         resave: false,
         saveUninitialized: true,
+        maxAge: 24 * 60 * 60 * 1000,
     })
 );
 
@@ -50,5 +53,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/payMeth', payRoutes);
+app.use('/home', homeRoutes);
 
 export default app;
