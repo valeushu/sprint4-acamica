@@ -1,14 +1,14 @@
 import { Router } from 'express';
 const router = Router();
 import * as payCtrl from '../controllers/pay.controller.js';
-import { authJwt } from '../middlewares/index.js';
+import { checkAuth } from '../middlewares/index.js';
 
-router.post('/', [authJwt.verifyToken, authJwt.isAdmin], payCtrl.createPayMeth);
+router.post('/', payCtrl.createPayMeth);
 
-router.get('/', [authJwt.verifyToken], payCtrl.getPayMeth);
+router.get('/', payCtrl.getPayMeth);
 
-router.put('/:paymentId', [authJwt.verifyToken, authJwt.isAdmin], payCtrl.updatePayMethById);
-router.delete('/:paymentId', [authJwt.verifyToken, authJwt.isAdmin], payCtrl.deletePaymentById);
+router.put('/:paymentId',  payCtrl.updatePayMethById);
+router.delete('/:paymentId',  payCtrl.deletePaymentById);
 
 export default router;
 

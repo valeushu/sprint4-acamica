@@ -3,19 +3,36 @@ const router = Router();
 import passport from 'passport';
 
 import * as authCtrl from '../controllers/auth.controller.js';
-import { verifySignup, authJwt } from '../middlewares/index.js';
+import { verifySignup, checkAuth } from '../middlewares/index.js';
 import '../services/google.auth.js';
+import '../services/facebook.auth.js';
+import '../services/discord.auth.js';
 
 router.post('/signup', [verifySignup.checkDuplicateEmail, verifySignup.checkRolesExisted], authCtrl.signup);
 router.post('/login', authCtrl.login);
-router.get('/me', [authJwt.verifyToken], authCtrl.me);
+router.get('/me', [checkAuth], authCtrl.me);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: "http://localhost:7000/home"
-}));
+router.get(
+    '/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/home',
+    })
+);
 
+router.get('/facebook', passport.authenticate('facebook'));
+
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/home');
+});
+
+router.get('/discord', passport.authenticate('discord'));
+router.get('/discord/callback', passport.authenticate('discord', { failureRedirect: '/login' }), function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/home');
+});
 export default router;
 
 /**

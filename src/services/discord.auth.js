@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { Strategy as DiscordStrategy } from 'passport-discord';
 import User from '../models/user.js';
 import 'dotenv/config';
 
@@ -14,16 +14,16 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.use(
-    new FacebookStrategy(
+    new DiscordStrategy(
         {
-            clientID: process.env.FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            callbackURL: 'http://localhost:7000/api/auth/facebook/callback',
-            //passReqToCallback   : true
+            clientID: process.env.DISCORD_CLIENT_ID,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET,
+            callbackURL: 'http://localhost:7000/api/auth/discord/callback',
+            scope   : ['identify', 'email'],
         },
         function (accessToken, refreshToken, profile, done) {
             //check if user alredy exists in db
-            User.findOne({ "facebook.id" : profile.id }).then((currentUser) => {
+            User.findOne({ "discord.id" : profile.id }).then((currentUser) => {
                 if (currentUser) {
                     // alredy have the user
                     console.log('user is: ', currentUser);
@@ -32,9 +32,9 @@ passport.use(
                 }
                 //if not, create user in our db
                 new User({
-                    "facebook.username" : profile.displayName,
-                    "facebook.id": profile.id,
-                    //"facebook.email": profile.emails[0].value,
+                    "discord.username" : profile.displayName,
+                    "discord.id": profile.id,
+                    "discord.email": profile.email
                 })
                     .save()
                     .then((newUser) => {

@@ -2,12 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
-import productsRoutes from './routes/products.routes.js';
-import usersRoutes from './routes/user.routes.js';
-import authRoutes from './routes/auth.routes.js';
-import ordersRoutes from './routes/order.routes.js';
-import payRoutes from './routes/pay.routes.js';
-import homeRoutes from './routes/home.route.js';
+import * as router from './routes/index.routes.js';
 import 'dotenv/config';
 import { createRoles } from './libs/initialSetup.js';
 import passport from 'passport';
@@ -48,11 +43,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
-app.use('/api/products', productsRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/users', usersRoutes);
-app.use('/api/orders', ordersRoutes);
-app.use('/api/payMeth', payRoutes);
-app.use('/home', homeRoutes);
+app.use('/api/products', router.productsRoutes);
+app.use('/api/auth', router.authRoutes);
+app.use('/api/users', router.usersRoutes);
+app.use('/api/orders', router.ordersRoutes);
+app.use('/api/payMeth', router.payRoutes);
+app.use('/home', router.homeRoutes);
 
 export default app;

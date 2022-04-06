@@ -2,12 +2,12 @@ import { Router } from 'express';
 const router = Router();
 
 import { verifyLogin } from '../middlewares/index.js';
-import { authJwt } from '../middlewares/index.js';
+import { checkAuth } from '../middlewares/index.js';
 import * as ordersCtrl from '../controllers/order.controller.js';
 
-router.get('/', [authJwt.verifyToken, authJwt.isAdmin], ordersCtrl.getOrders);
+router.get('/', [checkAuth], ordersCtrl.getOrders);
 router.post('/', ordersCtrl.createOrder);
-router.delete('/:orderId', [authJwt.verifyToken, authJwt.isAdmin], ordersCtrl.deleteOrderById);
+router.delete('/:orderId', ordersCtrl.deleteOrderById);
 
 export default router;
 

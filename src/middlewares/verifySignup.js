@@ -17,7 +17,7 @@ export const checkRolesExisted = (req, res, next) => {
 export const checkDuplicateEmail = async (req, res, next) => {
     try {
         const { email } = req.body;
-        const emailRep = await User.findOne({ email: req.body.email });
+        const emailRep = await User.findOne({ "local.email": req.body.email });
         console.log(email);
         if (!email) {
             return res.status(500).json({ status: 'information is missing' });

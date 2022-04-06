@@ -1,19 +1,17 @@
 import { Router } from 'express';
 const router = Router();
 import passport from 'passport';
-import {  authJwt } from '../middlewares/index.js';
+import {  checkAuth } from '../middlewares/index.js';
 
-const authCheck = (req, res, next)=> {
-    if (req.isAuthenticated()){
-        next()
-        return
-    }
-    res.status(401).json("authenticated user")
-}
-
-router.get('/', authCheck, (req, res) => {
-   // console.log(req.user)
+router.get('/', checkAuth, (req, res) => {
+    // console.log(req.user)
+    console.log("HEADERS", req.headers)
     res.json({"user is" : req.user})
+} );
+
+router.get('/prueba', [checkAuth], (req, res) => {
+    // console.log(req.user)
+    res.send("pruebaa");
 } );
 
 export default router;
