@@ -1,4 +1,4 @@
-import mon from 'mongoose';
+/**import mon from 'mongoose';
 const { Schema, model } = mon;
 export const ROLES = ['user', 'admin'];
 
@@ -10,4 +10,4 @@ const roleSchema = new Schema(
         versionKey: false,
     }
 );
-export default model('Role', roleSchema);
+export default model('Role', roleSchema);**/

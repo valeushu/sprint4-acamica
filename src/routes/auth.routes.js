@@ -4,12 +4,33 @@ import passport from 'passport';
 
 import * as authCtrl from '../controllers/auth.controller.js';
 import { verifySignup, checkAuth } from '../middlewares/index.js';
+import '../services/local.auth.js';
 import '../services/google.auth.js';
 import '../services/facebook.auth.js';
 import '../services/discord.auth.js';
 
-router.post('/signup', [verifySignup.checkDuplicateEmail, verifySignup.checkRolesExisted], authCtrl.signup);
-router.post('/login', authCtrl.login);
+router.get('/signup', (req, res, next) => {
+    res.render('signup');
+});
+router.post(
+    '/signup',
+    passport.authenticate('local-signup', {
+        successRedirect: '/profile',
+        failureRedirect: '/api/auth/signup',
+    })
+);
+router.get('/login', (req, res, next) => {
+    res.render('login');
+})
+
+router.post(
+    '/login',
+    passport.authenticate('local-login', {
+        successRedirect: '/profile',
+        failureRedirect: '/api/auth/login',
+        passReqToCallback: true
+    })
+);
 router.get('/me', [checkAuth], authCtrl.me);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

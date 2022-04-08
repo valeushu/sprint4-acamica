@@ -1,29 +1,20 @@
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import Role from '../models/role.js';
 import passport from 'passport';
 
+/** 
 export const signup = async (req, res) => {
+    console.log(req.body)
+    res.send("recibido")
     try {
-        const { username, fullname, email, password, phone, address, roles } = req.body;
+        const { email, password } = req.body;
         const hash = await bcrypt.hash(password, 10);
 
         const newUser = new User({
-            username,
-            fullname,
             email,
             password: hash,
-            phone,
-            address,
         });
-        if (roles) {
-            const foundRoles = await Role.find({ name: { $in: roles } });
-            newUser.roles = foundRoles.map((role) => role._id);
-        } else {
-            const role = await Role.findOne({ name: 'user' });
-            newUser.roles = [role._id];
-        }
         const savedUser = await newUser.save();
         console.log(savedUser);
         const token = jwt.sign({ id: savedUser._id }, process.env.SECRET, {
@@ -32,9 +23,9 @@ export const signup = async (req, res) => {
         res.status(200).json({ savedUser, token });
     } catch (err) {
         console.log(err);
-        res.status(400).json({ status: 'something brokes' });
+        res.render('something brokes');
     }
-};
+};**/
 
 export const login = async (req, res) => {
     const userFound = await User.findOne({ email: req.body.email }).populate('roles');

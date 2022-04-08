@@ -1,4 +1,4 @@
-import { ROLES } from '../models/role.js';
+/**import { ROLES } from '../models/role.js';
 import User from '../models/user.js';
 
 export const checkRolesExisted = (req, res, next) => {
@@ -28,4 +28,4 @@ export const checkDuplicateEmail = async (req, res, next) => {
         console.log(error);
     }
     next();
-};
+};**/

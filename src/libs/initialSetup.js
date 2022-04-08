@@ -1,4 +1,4 @@
-import Role from '../models/role.js';
+/**import Role from '../models/role.js';
 
 export const createRoles = async () => {
     try {
@@ -10,4 +10,4 @@ export const createRoles = async () => {
     } catch (error) {
         console.error(error);
     }
-};
+};**/

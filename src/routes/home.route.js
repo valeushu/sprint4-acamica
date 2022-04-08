@@ -3,15 +3,17 @@ const router = Router();
 import passport from 'passport';
 import {  checkAuth } from '../middlewares/index.js';
 
-router.get('/', checkAuth, (req, res) => {
+router.get('/', (req, res, next) => {
     // console.log(req.user)
-    console.log("HEADERS", req.headers)
-    res.json({"user is" : req.user})
+    res.render('index')
 } );
 
-router.get('/prueba', [checkAuth], (req, res) => {
+router.get('/profile', (req, res, next) => {
     // console.log(req.user)
-    res.send("pruebaa");
+    res.render('profile')
 } );
+
+
+
 
 export default router;

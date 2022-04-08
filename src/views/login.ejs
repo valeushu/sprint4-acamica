@@ -1,0 +1,11 @@
+<%- layout('layouts/main.ejs')%>
+    
+
+<form action="/api/auth/login" method="POST">
+    <input type="email" name="email" placeholder="Insert email">
+    <input type="password" name="password" placeholder="insert password">
+
+    <button type="submit">
+         login
+    </button>
+</form>

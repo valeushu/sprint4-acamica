@@ -1,24 +1,34 @@
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import engine from 'ejs-mate';
+import path from 'path';
+import flash from 'connect-flash';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
 
 import * as router from './routes/index.routes.js';
 import 'dotenv/config';
-import { createRoles } from './libs/initialSetup.js';
+///import { createRoles } from './libs/initialSetup.js';
 import passport from 'passport';
 import session from 'cookie-session';
 
 const app = express();
 app.use(helmet());
-createRoles();
+//createRoles();
 
 //swagger
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import swaggerOptions from './docs/swagger.js';
+import { fileURLToPath } from 'url';
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 //settings
+app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', engine)
+app.set('view engine', 'ejs');
 app.set('port', process.env.PORT);
 app.set('json spaces', 2);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
@@ -39,8 +49,16 @@ app.use(
 );
 
 // Initializes passport and passport sessions
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next)=>{
+    app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.loginMessage = req.flash('loginMessage');
+    next()
+})
+
 
 //routes
 app.use('/api/products', router.productsRoutes);
@@ -48,6 +66,6 @@ app.use('/api/auth', router.authRoutes);
 app.use('/api/users', router.usersRoutes);
 app.use('/api/orders', router.ordersRoutes);
 app.use('/api/payMeth', router.payRoutes);
-app.use('/home', router.homeRoutes);
+app.use('/', router.homeRoutes);
 
 export default app;
