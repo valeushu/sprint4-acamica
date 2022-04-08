@@ -3,7 +3,7 @@ const router = Router();
 import passport from 'passport';
 
 import * as authCtrl from '../controllers/auth.controller.js';
-import { verifySignup, checkAuth } from '../middlewares/index.js';
+import { checkAuth } from '../middlewares/index.js';
 import '../services/local.auth.js';
 import '../services/google.auth.js';
 import '../services/facebook.auth.js';
@@ -17,6 +17,7 @@ router.post(
     passport.authenticate('local-signup', {
         successRedirect: '/profile',
         failureRedirect: '/api/auth/signup',
+        passReqToCallback: true
     })
 );
 router.get('/login', (req, res, next) => {
@@ -31,6 +32,11 @@ router.post(
         passReqToCallback: true
     })
 );
+
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    res.redirect('/')
+})
 router.get('/me', [checkAuth], authCtrl.me);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -38,7 +44,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get(
     '/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/home',
+        successRedirect: '/profile',
     })
 );
 

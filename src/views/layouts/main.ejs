@@ -5,16 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login nodejs</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
 </head>
 <body>
-    <%if (signupMessage) {%>
-        <div> <%= signupMessage %></div>
-       
-       <%} %>
-       <%if (loginMessage) {%>
-        <div> <%= loginMessage %></div>
-       
-       <%} %>
-<%- body%>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Delilah</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <% if (user) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/auth/logout">Logout</a>
+                    </li>
+                    <% } else{  %>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/auth/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/auth/Signup">Signup</a>
+              </li>
+              <% }   %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">
+        <%if (signupMessage.length > 0) {%>
+            <div class="alert alert-danger"> 
+                <%= signupMessage %></div>
+           
+           <%} %>
+           <%if (loginMessage.length > 0) {%>
+            <div class="alert alert-danger"> 
+                 <%= loginMessage %></div>
+           
+           <%} %>
+    <%- body%>
+    </div>
 </body>
 </html>

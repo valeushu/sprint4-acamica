@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
     res.render('index')
 } );
 
-router.get('/profile', (req, res, next) => {
+router.get('/profile',checkAuth, (req, res, next) => {
     // console.log(req.user)
     res.render('profile')
 } );

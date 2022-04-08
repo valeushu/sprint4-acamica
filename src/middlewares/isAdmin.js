@@ -1,4 +1,4 @@
-import User from '../models/user.js';
+/**import User from '../models/user.js';
 import Role from '../models/role.js';
 
 export const isAdmin = async (req, res, next) => {
@@ -13,4 +13,4 @@ export const isAdmin = async (req, res, next) => {
     }
 
     return res.status(403).json({ message: 'require admin role' });
-};
+};**/

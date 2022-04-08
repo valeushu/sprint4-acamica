@@ -1,6 +1,25 @@
 import jwt from 'jsonwebtoken';
 
 export const checkAuth = async (req, res, next) => {
+
+    try {
+        console.log("CHECK AUTH MIDDLEWARE")
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect('/')
+        console.log("NO ESTA AUTENTICADO POR PASSPORT");
+
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({ status: 'unauthorized' });
+    }
+
+
+
+
+
+    /** 
     try {
         console.log("CHECK AUTH MIDDLEWARE")
         if (req.isAuthenticated()) {
@@ -28,7 +47,7 @@ export const checkAuth = async (req, res, next) => {
     } catch (error) {
         console.log(error);
         return res.status(401).json({ status: 'unauthorized' });
-    }
+    }**/
 };
 
 
