@@ -5,7 +5,6 @@ import ordersRoutes from './order.routes.js';
 import payRoutes from './pay.routes.js';
 import homeRoutes from './home.route.js';
 
-
 export {
     productsRoutes,
     usersRoutes,

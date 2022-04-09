@@ -6,12 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login nodejs</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+      <style>
+          .btn-outline-facebook {
+                color: #3b5998;
+                background-color: #fff;
+                border-color: #3b5998;
+            }
+
+            .btn-outline-facebook:hover, .btn-outline-facebook:active, .btn-outline-facebook:visited {
+                background-color: #3b5998 !important;
+                color: #fff !important;
+            } 
+
+            .btn-outline-discord {
+                color: #5865F2;
+                background-color: #fff;
+                border-color: #5865F2;
+            }
+            .btn-outline-discord:hover, .btn-outline-discord:active, .btn-outline-discord:visited {
+                background-color: #5865F2 !important;
+                color: #fff !important;
+            }
+      </style>
 </head>
 <body>
-
+   
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Delilah</a>
+          <a class="navbar-brand" href="/">Delilah</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -29,10 +53,7 @@
                 <a class="nav-link" href="/api/auth/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/api/auth/Signup">Signup</a>
-              </li>
-              <li class="button">
-                <a href="/api/auth/google" >Sign in with Google</a>
+                <a class="nav-link" href="/api/auth/signup">Signup</a>
               </li>
               
               <% }   %>
@@ -53,6 +74,6 @@
            
            <%} %>
     <%- body%>
-    </div>
+
 </body>
 </html>

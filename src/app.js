@@ -10,12 +10,16 @@ const __dirname = path.dirname(__filename)
 
 import * as router from './routes/index.routes.js';
 import 'dotenv/config';
-///import { createRoles } from './libs/initialSetup.js';
-import passport from 'passport';
+
+
+import passport from './services/auth/passport.js';
+
 import session from 'cookie-session';
 
 const app = express();
 app.use(helmet());
+
+
 //createRoles();
 
 //swagger
@@ -50,8 +54,10 @@ app.use(
 
 // Initializes passport and passport sessions
 app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use((req, res, next)=>{
     app.locals.signupMessage = req.flash('signupMessage');

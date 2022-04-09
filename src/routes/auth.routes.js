@@ -2,64 +2,37 @@ import { Router } from 'express';
 const router = Router();
 import passport from 'passport';
 
-import * as authCtrl from '../controllers/auth.controller.js';
+import * as controller from '../controllers/auth.controller.js';
 import { checkAuth } from '../middlewares/index.js';
-import '../services/local.auth.js';
-import '../services/google.auth.js';
-import '../services/facebook.auth.js';
-import '../services/discord.auth.js';
 
-router.get('/signup', (req, res, next) => {
-    res.render('signup');
-});
-router.post(
-    '/signup',
-    passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/api/auth/signup',
-        passReqToCallback: true
-    })
-);
-router.get('/login', (req, res, next) => {
-    res.render('login');
-})
+router.get('/signup', controller.getSignupView);
 
-router.post(
-    '/login',
-    passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/api/auth/login',
-        passReqToCallback: true
-    })
-);
+router.post('/signup', controller.signup);
 
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect('/')
-})
-router.get('/me', [checkAuth], authCtrl.me);
+router.get('/login', controller.getLoginView);
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.post('/login', controller.login);
 
-router.get(
-    '/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/profile',
-    })
-);
+router.get('/google', controller.googleLogin);
 
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/google/callback', controller.googleCallback);
+
+router.get('/facebook', controller.facebookLogin);
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/home');
+    res.redirect('/profile');
 });
 
 router.get('/discord', passport.authenticate('discord'));
+
 router.get('/discord/callback', passport.authenticate('discord', { failureRedirect: '/login' }), function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/home');
+    res.redirect('/profile');
 });
+
+router.get('/me', [checkAuth], controller.me);
+
+router.get('/logout', controller.logout);
+
 export default router;
 
 /**

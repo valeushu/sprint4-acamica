@@ -1,45 +1,37 @@
-import User from '../models/user.js';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import passport from 'passport';
 
-/** 
-export const signup = async (req, res) => {
-    console.log(req.body)
-    res.send("recibido")
-    try {
-        const { email, password } = req.body;
-        const hash = await bcrypt.hash(password, 10);
-
-        const newUser = new User({
-            email,
-            password: hash,
-        });
-        const savedUser = await newUser.save();
-        console.log(savedUser);
-        const token = jwt.sign({ id: savedUser._id }, process.env.SECRET, {
-            expiresIn: 86400, //24 hs
-        });
-        res.status(200).json({ savedUser, token });
-    } catch (err) {
-        console.log(err);
-        res.render('something brokes');
-    }
-};**/
-
-export const login = async (req, res) => {
-    const userFound = await User.findOne({ email: req.body.email }).populate('roles');
-    if (!userFound) return res.status(400).json({ message: 'user not found' });
-
-    const matchPassword = await User.comparePassword(req.body.password, userFound.password);
-    if (!matchPassword) return res.status(401).json({ token: null, message: 'invalid password' });
-    const token = jwt.sign({ id: userFound._id }, process.env.SECRET, {
-        expiresIn: 86400,
-    });
-    res.status(200).json({ status: 'login', token });
-    req.token = token;
-    console.log(token);
+export const getSignupView = (req, res) => {
+    res.render('signup');
 };
+
+export const getLoginView = (req, res) => {
+    res.render('login');
+};
+
+export const signup = passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/api/auth/signup',
+    passReqToCallback: true,
+});
+
+export const login = passport.authenticate('local-login', {
+    successRedirect: '/profile',
+    failureRedirect: '/api/auth/login',
+    passReqToCallback: true,
+});
+
+export const logout = (req, res) => {
+    req.logout();
+    res.redirect('/api/auth/login');
+};
+
+export const googleLogin = passport.authenticate('google', { scope: ['profile', 'email'] });
+
+export const googleCallback = passport.authenticate('google', {
+    successRedirect: '/profile',
+});
+
+export const facebookLogin = passport.authenticate('facebook');
 
 export const me = (req, res, next) => {
     res.status(200).json({ status: 'me', data: req.dataUser });
