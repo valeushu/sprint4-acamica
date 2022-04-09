@@ -3,22 +3,25 @@ const { Schema, model } = mon;
 import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+    {
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
 
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+        googleId: {
+            type: String,
+        },
+    },
+    {
+        timestamps: true,
+        versionKey: false,
+    }
 );
 /** 
 const userSchema = new Schema(
