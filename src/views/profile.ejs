@@ -1,11 +1,12 @@
 <%- layout('layouts/main.ejs')%>
 <h1 class="mt-3">profile</h1>
 <div class="card card-body">
-<h3><%= user.email %></h3>
+    
+<h3><%= user.facebook.email %></h3>
+<h3><%= user.google.email %></h3>
+<h3><%= user.discord.email %></h3>
+
 <p>
-    <%= user.password %>
-</p>
-<p>
-    <%= user._id %>
+    User id <%= user._id %>
 </p>
 </div>

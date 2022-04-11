@@ -9,8 +9,9 @@ export const DiscordStrategy = new Strategy(
         scope: ['identify', 'email'],
     },
     function (accessToken, refreshToken, profile, done) {
+        console.log( profile.email)
         //check if user alredy exists in db
-        User.findOne({ 'discord.id': profile.id }).then((currentUser) => {
+        User.findOne({ "discord.id": profile.id }).then((currentUser) => {
             if (currentUser) {
                 // alredy have the user
                 console.log('user is: ', currentUser);
@@ -19,9 +20,9 @@ export const DiscordStrategy = new Strategy(
             }
             //if not, create user in our db
             new User({
-                'discord.username': profile.displayName,
-                'discord.id': profile.id,
-                'discord.email': profile.email,
+                "discord.id": profile.id,
+               "discord.email": profile.email,
+                //password: '',
             })
                 .save()
                 .then((newUser) => {

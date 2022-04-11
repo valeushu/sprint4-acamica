@@ -12,15 +12,15 @@ export const LocalSignupStrategy = new LocalStrategy(
     async (req, email, password, done) => {
         const hash = await bcrypt.hash(password, 10);
         //check if user alredy exists in db
-        User.findOne({ email: email }).then((currentUser) => {
+        User.findOne({ "local.email": email }).then((currentUser) => {
             if (currentUser) {
                 // alredy have the user
                 return done(null, false, req.flash('signupMessage', 'the email alredy exist'));
             }
             //if not, create user in our db
             const newUserData = {
-                email,
-                password: hash,
+               "local.email": email,
+                "local.password": hash,
             };
             new User(newUserData).save().then((newUser) => {
                 console.log('new user created: ' + newUser);
@@ -37,12 +37,12 @@ export const LocalLoginStrategy = new LocalStrategy(
         passReqToCallback: true,
     },
     async (req, email, password, done) => {
-        const userFound = await User.findOne({ email: email });
+        const userFound = await User.findOne({ "local.email": email });
         if (!userFound) {
             return done(null, false, req.flash('loginMessage', 'user not found'));
         }
-        const matchPassword = await User.comparePassword(password, userFound.password);
-
+        const matchPassword = await User.comparePassword(password, userFound.local.password);
+  
         if (!matchPassword) {
             return done(null, false, req.flash('loginMessage', 'incorrect password'));
         }

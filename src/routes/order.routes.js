@@ -1,7 +1,6 @@
 import { Router } from 'express';
 const router = Router();
 
-import { verifyLogin } from '../middlewares/index.js';
 import { checkAuth } from '../middlewares/index.js';
 import * as ordersCtrl from '../controllers/order.controller.js';
 
