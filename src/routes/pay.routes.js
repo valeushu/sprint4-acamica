@@ -3,18 +3,23 @@ const router = Router();
 import * as payCtrl from '../controllers/pay.controller.js';
 import { checkAuth } from '../middlewares/index.js';
 
-router.post('/', payCtrl.createPayMeth);
 
-router.get('/', payCtrl.getPayMeth);
 
-router.put('/:paymentId',  payCtrl.updatePayMethById);
+//router.post('/', payCtrl.createPayment);
+//router.get('/', payCtrl.getPayMeth);
+
+router.post('/create-order', payCtrl.createOrder);
+router.get('/capture-order', payCtrl.captureOrder);
+router.get('/cancel-order', payCtrl.cancelOrder);
+
+router.put('/:paymentId',  payCtrl.updatePaymentById);
 router.delete('/:paymentId',  payCtrl.deletePaymentById);
 
 export default router;
 
 /**
  * @swagger
- * /api/payMeth:
+ * /api/payment:
  *  post:
  *    tags: [payment methods]
  *    summary: new payment method.
@@ -46,7 +51,7 @@ export default router;
 
 /**
  * @swagger
- * /api/payMeth:
+ * /api/payment:
  *  get:
  *    tags: [payment methods]
  *    summary: payment methods
