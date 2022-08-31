@@ -6,7 +6,7 @@ import * as ordersCtrl from '../controllers/order.controller.js';
 
 router.get('/', [checkAuth], ordersCtrl.getOrders);
 router.post('/', ordersCtrl.createOrder);
-router.delete('/:orderId', ordersCtrl.deleteOrderById);
+router.delete('/:orderId',[checkAuth], ordersCtrl.deleteOrderById);
 
 export default router;
 
