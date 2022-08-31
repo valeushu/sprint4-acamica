@@ -14,7 +14,7 @@ Delilah Restó, desea tener una API para gestionar todos los pedidos del restaur
 7. En el archivo .env debe reemplazar la URL de su base de datos en la variable de entorno      "CONNECTION_STRING".
 8. Establezca el nombre de su clave SECRET.
 9. Arrancar el servidor ejecutando `npm start`
-10. Ejecución de test ejecutando `npm test`
+11. Ejecución de test ejecutando `npm test`
 
 #### Documentación de la aplicación con SWAGGER:
 
