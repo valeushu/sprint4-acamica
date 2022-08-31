@@ -40,7 +40,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha  --timeout 10000",
-    "dev": "nodemon src/index.js --exec babel-node"
+    "start": "nodemon src/index.js --exec babel-node"
   },
   "repository": {
     "type": "git",

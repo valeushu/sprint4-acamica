@@ -48,43 +48,20 @@ export default router;
  *           schema:
  *             type: object
  *             required:
- *               - username
- *               - fullname
  *               - email
  *               - password
- *               - phone
- *               - address
- *               - roles
+ *             
  *             properties:
- *                username:
- *                  description: User nickName
- *                  type: string
- *                fullname:
- *                  description: User firstName
- *                  type: string
  *                email:
  *                  description: User email
  *                  type: string
  *                password:
  *                  description: User password
  *                  type: string
- *                phone:
- *                  description: User number phone
- *                  type: string
- *                address:
- *                  description: User address
- *                  type: string
- *                roles:
- *                  description: User role
- *                  type: array
  *             example:
- *               username: tdfadmin
- *               fullname: tdfadmin amaria
  *               email: tdfadmin@gmail.com
- *               phone: 15777556
- *               address: maipu 1016
- *               password:  password
- *               roles: [admin]
+ *               password: password
+
  *     responses:
  *       "200":
  *         description: User Created

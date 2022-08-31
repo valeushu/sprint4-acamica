@@ -5,15 +5,18 @@ import { checkAuth } from '../middlewares/index.js';
 
 
 
-//router.post('/', payCtrl.createPayment);
+
+router.post('/',[checkAuth], payCtrl.createPayment);
 //router.get('/', payCtrl.getPayMeth);
+router.get('/', (req, res) => res.render('paypal'));
 
-router.post('/create-order', payCtrl.createOrder);
-router.get('/capture-order', payCtrl.captureOrder);
-router.get('/cancel-order', payCtrl.cancelOrder);
+router.post("/pay", payCtrl.createOrder );
+router.get("/success", payCtrl.success );
+router.get('/cancel', (req, res) => res.send('Cancelled'));
 
-router.put('/:paymentId',  payCtrl.updatePaymentById);
-router.delete('/:paymentId',  payCtrl.deletePaymentById);
+
+router.put('/:paymentId', [checkAuth], payCtrl.updatePaymentById);
+router.delete('/:paymentId',[checkAuth],  payCtrl.deletePaymentById);
 
 export default router;
 

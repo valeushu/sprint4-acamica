@@ -1,7 +1,89 @@
 import PaymentMethod from '../models/payMethod.js';
 import axios from 'axios';
+import paypal from 'paypal-rest-sdk';
 
-/**export const createPayment = async (req, res) => {
+paypal.configure({
+    mode: 'sandbox', //sandbox or live
+    client_id: 'ATq_P4oI-SOm-3_mGLho_uLbQQhtDVQBbJ0v3-WBJHYNAEKhsMAEuzCnqTJqs_BDK_ABjGA8jdBq64xr',
+    client_secret: 'EJ7CHtHZ_7PtYF0DR3_M6K2z9Awklz3nAQVfcP_Rqb7OrjFCuqojPiv34GWCVchU9BALXJc-il34L-Hv',
+});
+
+export const createOrder = (req, res) => {
+    const create_payment_json = {
+        intent: 'order',
+        payer: {
+            payment_method: 'paypal',
+        },
+        redirect_urls: {
+            return_url: 'http://localhost:7000/api/payment/success',
+            cancel_url: 'http://localhost:7000/api/payment/cancel',
+        },
+        transactions: [
+            {
+                item_list: {
+                    items: [
+                        {
+                            name: 'Red Sox Hat',
+                            sku: '001',
+                            price: '25.00',
+                            currency: 'USD',
+                            quantity: 1,
+                        },
+                    ],
+                },
+                amount: {
+                    currency: 'USD',
+                    total: '25.00',
+                },
+                description: 'Hat for the best team ever',
+            },
+        ],
+    };
+
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            throw error;
+        } else {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href);
+                }
+            }
+        }
+    });
+};
+
+export const success = (req, res) => {
+    const payerId = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+
+    const execute_payment_json = {
+        payer_id: payerId,
+        transactions: [
+            {
+                amount: {
+                    currency: 'USD',
+                    total: '25.00',
+                },
+            },
+        ],
+    };
+
+    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        if (error) {
+            console.log(error.response);
+            throw error;
+        } else {
+            console.log(JSON.stringify(payment));
+            res.send('Success');
+        }
+    });
+};
+
+
+
+
+export const createPayment = async (req, res) => {
     const { payment, deleted } = req.body;
     const newPayMeth = new PaymentMethod({ payment, deleted });
     const paymentSaved = await newPayMeth.save();
@@ -9,8 +91,8 @@ import axios from 'axios';
     res.status(201).json({
         paymentaved,
     });
-};*/
-
+};
+/** 
 export const createOrder = async (req, res) => {
     try {
         const order = {
@@ -91,7 +173,7 @@ export const captureOrder = async (req, res) => {
 export const cancelOrder = async (req, res) => {
     res.redirect('/');
 };
-
+*/
 export const updatePaymentById = async (req, res) => {
     const updatePayMeth = await PaymentMethod.findByIdAndUpdate(req.params.paymentId, req.body, {
         new: true,

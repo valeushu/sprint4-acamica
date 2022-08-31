@@ -2,7 +2,7 @@ const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.3',
         info: {
-            title: 'Sprint 2',
+            title: 'Sprint 4',
             version: '1.0.0',
             description: 'API DELILAH Resto',
         },

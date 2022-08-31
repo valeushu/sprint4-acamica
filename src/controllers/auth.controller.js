@@ -31,8 +31,7 @@ export const googleCallback = passport.authenticate('google', {
     successRedirect: '/profile',
 });
 
-export const facebookLogin = passport.authenticate('facebook', { scope: [ 'public_profile','email'] });
-
+export const facebookLogin = passport.authenticate('facebook', { scope: ['public_profile', 'email'] });
 
 export const me = (req, res, next) => {
     res.status(200).json({ status: 'me', data: req.dataUser });

@@ -4,10 +4,7 @@ import helmet from 'helmet';
 import engine from 'ejs-mate';
 import path from 'path';
 import flash from 'connect-flash';
-import paypal from 'paypal-rest-sdk';
 
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = path.dirname(__filename)
 
 import * as router from './routes/index.routes.js';
 import 'dotenv/config';
@@ -50,7 +47,11 @@ app.use(
         maxAge: 24 * 60 * 60 * 1000,
     })
 );
-app.use(express.static(path.join(__dirname, 'public')));
+
+
+//app.use(express.static(path.join(__dirname, 'public')));
+
+//app.use(express.static(__dirname + '/public'));
 
 
 // Initializes passport and passport sessions

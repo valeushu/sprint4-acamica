@@ -3,11 +3,12 @@ const router = Router();
 import * as productsCtrl from '../controllers/products.controller.js';
 import { checkAuth } from '../middlewares/index.js';
 
-router.get('/prueba', [checkAuth], (req, res) => {
+/**router.get('/prueba', [checkAuth], (req, res) => {
     res.send('hola');
-});
+});*/
+router.get('/', (req, res) => res.render('products'));
 router.post('/', productsCtrl.createProduct);
-router.get('/', [checkAuth], productsCtrl.getProducts);
+router.get('/all', [checkAuth], productsCtrl.getProducts);
 router.get('/:productId', productsCtrl.getProductById);
 router.put('/:productId', productsCtrl.updateProductById);
 router.delete('/:productId', productsCtrl.deleteProductById);
