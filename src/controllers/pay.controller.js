@@ -4,8 +4,8 @@ import paypal from 'paypal-rest-sdk';
 
 paypal.configure({
     mode: 'sandbox', //sandbox or live
-    client_id: 'ATq_P4oI-SOm-3_mGLho_uLbQQhtDVQBbJ0v3-WBJHYNAEKhsMAEuzCnqTJqs_BDK_ABjGA8jdBq64xr',
-    client_secret: 'EJ7CHtHZ_7PtYF0DR3_M6K2z9Awklz3nAQVfcP_Rqb7OrjFCuqojPiv34GWCVchU9BALXJc-il34L-Hv',
+    client_id: process.env.PAYPAL_CLIENT_ID,
+    client_secret: process.env.PAYPAL_SECRET,
 });
 
 export const createOrder = (req, res) => {
